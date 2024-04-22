@@ -139,3 +139,88 @@ print(cumulative_sum)
 ```
 
 Ces méthodes constituent une partie importante de l'arsenal d'analyse de données offert par Pandas. Elles vous permettent d'explorer vos données, d'identifier des tendances, des corrélations et des modèles, et de prendre des décisions éclairées en fonction de ces analyses.
+
+# Graphe
+Pour créer des graphiques à partir des résultats que vous avez trouvés en utilisant Pandas, vous pouvez utiliser la bibliothèque de visualisation Matplotlib intégrée à Pandas, ou d'autres bibliothèques de visualisation comme Seaborn ou Plotly. Voici quelques exemples de graphiques que vous pouvez créer avec Pandas et Matplotlib :
+
+### Histogramme :
+Un histogramme est un graphique qui montre la répartition des valeurs dans une série de données.
+
+```python
+import matplotlib.pyplot as plt
+
+# Créer un histogramme
+df['column'].hist()
+
+# Ajouter des labels et un titre
+plt.xlabel('X Label')
+plt.ylabel('Y Label')
+plt.title('Histogram')
+
+# Afficher le graphique
+plt.show()
+```
+
+### Diagramme à barres :
+Un diagramme à barres est utile pour comparer les valeurs entre différentes catégories.
+
+```python
+# Créer un diagramme à barres
+df['column'].value_counts().plot(kind='bar')
+
+# Ajouter des labels et un titre
+plt.xlabel('X Label')
+plt.ylabel('Y Label')
+plt.title('Bar Chart')
+
+# Afficher le graphique
+plt.show()
+```
+
+### Diagramme circulaire :
+Un diagramme circulaire montre la répartition des valeurs en pourcentage.
+
+```python
+# Créer un diagramme circulaire
+df['column'].value_counts().plot(kind='pie')
+
+# Ajouter un titre
+plt.title('Pie Chart')
+
+# Afficher le graphique
+plt.show()
+```
+
+### Diagramme de dispersion :
+Un diagramme de dispersion est utilisé pour visualiser la relation entre deux variables.
+
+```python
+# Créer un diagramme de dispersion
+plt.scatter(df['column1'], df['column2'])
+
+# Ajouter des labels et un titre
+plt.xlabel('X Label')
+plt.ylabel('Y Label')
+plt.title('Scatter Plot')
+
+# Afficher le graphique
+plt.show()
+```
+
+### Ligne ou courbe :
+Un graphique en ligne est utilisé pour afficher l'évolution d'une variable sur une période.
+
+```python
+# Créer un graphique en ligne
+df['column'].plot(kind='line')
+
+# Ajouter des labels et un titre
+plt.xlabel('X Label')
+plt.ylabel('Y Label')
+plt.title('Line Plot')
+
+# Afficher le graphique
+plt.show()
+```
+
+Ces exemples de graphiques utilisent Matplotlib pour la visualisation, mais vous pouvez également utiliser d'autres bibliothèques de visualisation comme Seaborn ou Plotly pour créer des graphiques plus complexes et esthétiques. En utilisant ces méthodes, vous pouvez explorer visuellement vos données et en extraire des insights importants.
