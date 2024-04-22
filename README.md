@@ -224,3 +224,71 @@ plt.show()
 ```
 
 Ces exemples de graphiques utilisent Matplotlib pour la visualisation, mais vous pouvez également utiliser d'autres bibliothèques de visualisation comme Seaborn ou Plotly pour créer des graphiques plus complexes et esthétiques. En utilisant ces méthodes, vous pouvez explorer visuellement vos données et en extraire des insights importants.
+
+
+# EXEMPLE D'APPLICATION
+Avec le jeu de données Titanic, vous pouvez créer un modèle de prédiction de survie en fonction de caractéristiques telles que l'âge, le sexe et la classe. Voici comment vous pouvez le faire en utilisant Python et Scikit-learn :
+
+### 1. Chargement des données et préparation :
+
+```python
+import pandas as pd
+
+# Charger les données Titanic depuis un fichier CSV
+titanic_data = pd.read_csv('titanic.csv')
+
+# Sélectionner les caractéristiques pertinentes (âge, sexe, classe) et la cible (survie)
+data = titanic_data[['Age', 'Sex', 'Pclass', 'Survived']].copy()
+
+# Convertir le sexe en valeurs numériques (0 pour homme, 1 pour femme)
+data['Sex'] = data['Sex'].map({'male': 0, 'female': 1})
+
+# Supprimer les lignes avec des valeurs manquantes
+data = data.dropna()
+
+# Séparer les caractéristiques et la cible
+X = data[['Age', 'Sex', 'Pclass']]
+y = data['Survived']
+```
+
+### 2. Division des données en ensembles d'entraînement et de test :
+
+```python
+from sklearn.model_selection import train_test_split
+
+# Diviser les données en ensembles d'entraînement et de test (80% train, 20% test)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+```
+
+### 3. Entraînement du modèle de prédiction :
+
+```python
+from sklearn.ensemble import RandomForestClassifier
+
+# Créer et entraîner un classificateur RandomForest
+model = RandomForestClassifier(random_state=42)
+model.fit(X_train, y_train)
+```
+
+### 4. Évaluation du modèle :
+
+```python
+from sklearn.metrics import accuracy_score
+
+# Faire des prédictions sur l'ensemble de test
+y_pred = model.predict(X_test)
+
+# Calculer l'exactitude du modèle
+accuracy = accuracy_score(y_test, y_pred)
+print("Accuracy:", accuracy)
+```
+
+### 5. Utilisation du modèle pour faire des prédictions :
+
+```python
+# Exemple de prédiction pour un passager : [Age, Sexe, Classe]
+prediction = model.predict([[30, 0, 3]])
+print("Prediction:", prediction)
+```
+
+Avec ces étapes, vous avez créé un modèle de prédiction de survie basé sur l'âge, le sexe et la classe des passagers du Titanic. Vous pouvez ajuster les hyperparamètres du modèle, explorer d'autres algorithmes d'apprentissage automatique et ajouter des fonctionnalités supplémentaires pour améliorer les performances du modèle.
