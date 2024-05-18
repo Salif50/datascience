@@ -226,7 +226,139 @@ plt.show()
 Ces exemples de graphiques utilisent Matplotlib pour la visualisation, mais vous pouvez également utiliser d'autres bibliothèques de visualisation comme Seaborn ou Plotly pour créer des graphiques plus complexes et esthétiques. En utilisant ces méthodes, vous pouvez explorer visuellement vos données et en extraire des insights importants.
 
 
-# EXEMPLE D'APPLICATION
+# EXEMPLE ANALYSE TITANIC
+ Le dataset Titanic est un excellent point de départ pour pratiquer des analyses de données avec Pandas. Voici quelques étapes et exemples d'analyses que vous pouvez effectuer avec Pandas sur ce dataset. 
+
+### Étapes de base pour analyser le dataset Titanic
+
+1. **Charger les données**
+2. **Explorer les données**
+3. **Nettoyer les données**
+4. **Analyser les données**
+5. **Visualiser les données**
+
+### 1. Charger les données
+
+Tout d'abord, assurez-vous que le dataset Titanic est téléchargé. Il est souvent disponible sous forme de fichier CSV (`titanic.csv`). Ensuite, chargez ce fichier dans un DataFrame Pandas.
+
+```python
+import pandas as pd
+
+# Charger le dataset Titanic
+df = pd.read_csv('titanic.csv')
+```
+
+### 2. Explorer les données
+
+Avant de commencer l'analyse, il est important de comprendre la structure des données.
+
+```python
+# Afficher les premières lignes du dataset
+print(df.head())
+
+# Obtenir des informations sur le dataset
+print(df.info())
+
+# Résumé statistique des colonnes numériques
+print(df.describe())
+
+# Vérifier les valeurs manquantes
+print(df.isnull().sum())
+```
+
+### 3. Nettoyer les données
+
+Les datasets réels contiennent souvent des valeurs manquantes ou des données mal formatées. Nettoyons les données en conséquence.
+
+#### Exemple de nettoyage:
+
+- Remplacer les valeurs manquantes dans la colonne `Age` par la médiane des âges.
+- Remplacer les valeurs manquantes dans la colonne `Embarked` par la valeur la plus fréquente.
+
+```python
+# Remplacer les valeurs manquantes dans la colonne 'Age'
+df['Age'].fillna(df['Age'].median(), inplace=True)
+
+# Remplacer les valeurs manquantes dans la colonne 'Embarked'
+df['Embarked'].fillna(df['Embarked'].mode()[0], inplace=True)
+
+# Vérifier les modifications
+print(df.isnull().sum())
+```
+
+### 4. Analyser les données
+
+Maintenant que les données sont nettoyées, vous pouvez effectuer diverses analyses.
+
+#### Analyse de la répartition des survivants
+
+```python
+# Nombre de survivants et non-survivants
+survival_counts = df['Survived'].value_counts()
+print(survival_counts)
+
+# Pourcentage de survivants
+survival_rate = df['Survived'].mean()
+print(f'Survival Rate: {survival_rate:.2%}')
+```
+
+#### Analyse par sexe
+
+```python
+# Taux de survie par sexe
+survival_rate_by_sex = df.groupby('Sex')['Survived'].mean()
+print(survival_rate_by_sex)
+```
+
+#### Analyse par classe
+
+```python
+# Taux de survie par classe
+survival_rate_by_class = df.groupby('Pclass')['Survived'].mean()
+print(survival_rate_by_class)
+```
+
+### 5. Visualiser les données
+
+Les visualisations peuvent aider à comprendre les tendances et les distributions dans les données.
+
+```python
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Répartition des survivants et non-survivants
+sns.countplot(x='Survived', data=df)
+plt.title('Distribution of Survivors')
+plt.show()
+
+# Taux de survie par sexe
+sns.barplot(x='Sex', y='Survived', data=df)
+plt.title('Survival Rate by Sex')
+plt.show()
+
+# Taux de survie par classe
+sns.barplot(x='Pclass', y='Survived', data=df)
+plt.title('Survival Rate by Class')
+plt.show()
+
+# Distribution des âges
+sns.histplot(df['Age'], bins=30, kde=True)
+plt.title('Age Distribution')
+plt.show()
+
+# Taux de survie par âge
+plt.figure(figsize=(10, 6))
+sns.kdeplot(df[df['Survived'] == 1]['Age'], label='Survived', shade=True)
+sns.kdeplot(df[df['Survived'] == 0]['Age'], label='Not Survived', shade=True)
+plt.title('Survival Rate by Age')
+plt.xlabel('Age')
+plt.ylabel('Density')
+plt.legend()
+plt.show()
+```
+
+
+# EXEMPLE D'APPLICATION ML
 Avec le jeu de données Titanic, vous pouvez créer un modèle de prédiction de survie en fonction de caractéristiques telles que l'âge, le sexe et la classe. Voici comment vous pouvez le faire en utilisant Python et Scikit-learn :
 
 ### 1. Chargement des données et préparation :
